@@ -46,4 +46,3 @@ Open http://localhost:8000 for the app, and http://localhost:8000/admin for admi
 =======
 # pharmacy_warehouse_management_system
 Django-based Pharmacy Warehouse Management System with login/signup, dashboard, expiry alerts, low-stock tracking, medicine &amp; batch management, stock movement, and shipping details. Built with Django, SQLite, Bootstrap, and includes an admin panel for full inventory control.
->>>>>>> a57b823eb31805198706f13728b3d815e639b018
