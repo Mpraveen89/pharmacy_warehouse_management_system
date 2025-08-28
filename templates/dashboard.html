@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="bg-white p-4 rounded shadow"><div class="text-gray-500">Medicines</div><div class="text-3xl font-bold">{{ total_items }}</div></div>
+  <div class="bg-white p-4 rounded shadow"><div class="text-gray-500">Batches</div><div class="text-3xl font-bold">{{ total_batches }}</div></div>
+  <div class="bg-white p-4 rounded shadow"><div class="text-gray-500">Total Qty</div><div class="text-3xl font-bold">{{ total_qty }}</div></div>
+  <div class="bg-white p-4 rounded shadow"><div class="text-gray-500">Expiring ≤ {{ exp_days }} days</div><div class="text-3xl font-bold">{{ expiring_soon.count }}</div></div>
+</div>
+
+<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Expiring Soon</h2>
+    <ul class="divide-y">
+      {% for b in expiring_soon %}
+      <li class="py-2 flex justify-between">
+        <span>{{ b.medicine }} (Lot {{ b.lot_no }})</span>
+        <span class="text-sm text-red-600">{{ b.exp_date }} ({{ b.days_to_expiry }} d)</span>
+      </li>
+      {% empty %}<li class="py-2 text-gray-500">Nothing expiring soon.</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Expired</h2>
+    <ul class="divide-y">
+      {% for b in expired %}
+      <li class="py-2 flex justify-between">
+        <span>{{ b.medicine }} (Lot {{ b.lot_no }})</span>
+        <span class="text-sm text-red-600">{{ b.exp_date }}</span>
+      </li>
+      {% empty %}<li class="py-2 text-gray-500">No expired stock.</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Low Stock (≤ {{ low }})</h2>
+    <ul class="divide-y">
+      {% for b in low_stock %}
+      <li class="py-2 flex justify-between">
+        <span>{{ b.medicine }} (Lot {{ b.lot_no }}) @ {{ b.location }}</span>
+        <span class="text-sm">{{ b.quantity }}</span>
+      </li>
+      {% empty %}<li class="py-2 text-gray-500">No low stock.</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Recent Movements</h2>
+    <ul class="divide-y">
+      {% for m in recent_moves %}
+      <li class="py-2 flex justify-between">
+        <span>{{ m.get_move_type_display }} - {{ m.batch.medicine }} ({{ m.quantity }})</span>
+        <span class="text-sm text-gray-500">{{ m.moved_at|date:"Y-m-d H:i" }}</span>
+      </li>
+      {% empty %}<li class="py-2 text-gray-500">No movements logged.</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

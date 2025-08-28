@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">Addresses</h1>
+  <a href="{% url 'address_create' %}" class="bg-green-600 text-white px-4 py-2 rounded">New</a>
+</div>
+<div class="bg-white rounded shadow overflow-x-auto">
+  <table class="min-w-full">
+    <thead class="bg-gray-100"><tr>
+      <th class="p-2">Name</th><th class="p-2">City</th><th class="p-2">State</th><th class="p-2">Country</th>
+    </tr></thead>
+    <tbody>
+      {% for a in items %}
+      <tr class="border-b">
+        <td class="p-2">{{ a.name }}</td>
+        <td class="p-2">{{ a.city }}</td>
+        <td class="p-2">{{ a.state }}</td>
+        <td class="p-2">{{ a.country }}</td>
+      </tr>
+      {% empty %}
+      <tr><td class="p-2" colspan="4">No addresses.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

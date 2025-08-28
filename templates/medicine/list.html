@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">Medicines</h1>
+  <a href="{% url 'medicine_create' %}" class="bg-green-600 text-white px-4 py-2 rounded">New</a>
+</div>
+<form method="get" class="mb-4">
+  <input name="q" value="{{ q }}" placeholder="Search name / barcode / category" class="border p-2 rounded w-full"/>
+</form>
+<div class="bg-white rounded shadow overflow-x-auto">
+  <table class="min-w-full">
+    <thead class="bg-gray-100"><tr>
+      <th class="p-2 text-left">Name</th><th class="p-2">Form</th><th class="p-2">Strength</th><th class="p-2">Category</th><th class="p-2">Barcode</th>
+    </tr></thead>
+    <tbody>
+      {% for i in items %}
+      <tr class="border-b hover:bg-gray-50">
+        <td class="p-2"><a class="text-indigo-600" href="{% url 'medicine_detail' i.pk %}">{{ i.name }}</a></td>
+        <td class="p-2">{{ i.get_dosage_form_display }}</td>
+        <td class="p-2">{{ i.strength }}</td>
+        <td class="p-2">{{ i.category }}</td>
+        <td class="p-2">{{ i.upc }}</td>
+      </tr>
+      {% empty %}
+      <tr><td class="p-2" colspan="5">No medicines.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

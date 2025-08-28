@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pharmacy WMS</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+<nav class="bg-indigo-600 text-white">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between">
+    <a href="/" class="font-semibold">Pharmacy WMS</a>
+    <div class="space-x-4">
+      {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}" class="hover:underline">Dashboard</a>
+      <a href="{% url 'medicine_list' %}" class="hover:underline">Medicines</a>
+      <a href="{% url 'batch_list' %}" class="hover:underline">Batches</a>
+      <a href="{% url 'movement_list' %}" class="hover:underline">Movements</a>
+      <a href="{% url 'address_list' %}" class="hover:underline">Addresses</a>
+      <a href="{% url 'logout' %}" class="hover:underline">Logout</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="hover:underline">Login</a>
+      <a href="{% url 'signup' %}" class="hover:underline">Sign up</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<main class="max-w-7xl mx-auto p-4">
+  {% for message in messages %}
+    <div class="p-3 my-2 rounded {{ message.tags }} bg-yellow-100 border border-yellow-300">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center text-gray-500 py-6">
+  <p>&copy; {{ now|default:None|date:"Y" }} Pharmacy WMS</p>
+</footer>
+</body>
+</html>

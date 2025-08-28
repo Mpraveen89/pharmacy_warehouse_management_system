@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold">Batch {{ b.lot_no }}</h1>
+<p class="text-gray-600 mb-2">{{ b.medicine }} | {{ b.location }}</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="bg-white p-4 rounded shadow">
+    <div>MFG: {{ b.mfg_date }}</div>
+    <div>EXP: <span class="{% if b.is_expired %}text-red-600{% endif %}">{{ b.exp_date }}</span></div>
+    <div>Qty: {{ b.quantity }}</div>
+    <div>Days to expiry: {{ b.days_to_expiry }}</div>
+  </div>
+  <div class="md:col-span-2 bg-white p-4 rounded shadow">
+    <h2 class="font-semibold mb-2">Movements</h2>
+    <ul class="divide-y">
+      {% for m in moves %}
+      <li class="py-2 flex justify-between">
+        <span>{{ m.get_move_type_display }} • {{ m.quantity }} • {{ m.ref_no }}</span>
+        <span class="text-sm text-gray-500">{{ m.moved_at|date:"Y-m-d H:i" }}</span>
+      </li>
+      {% empty %}<li class="py-2 text-gray-500">No movements yet.</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
