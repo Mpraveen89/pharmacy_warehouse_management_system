@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Pharmacy Warehouse Management System (Django)
 
 Features:
@@ -42,3 +43,7 @@ Open http://localhost:8000 for the app, and http://localhost:8000/admin for admi
 ## Notes
 - FEFO (first-expiry-first-out) can be added by auto-selecting the earliest `exp_date` batch for `OUT` moves.
 - For production, switch to PostgreSQL, add proper logging, audit trails, and background emails/SMS for alerts.
+=======
+# pharmacy_warehouse_management_system
+Django-based Pharmacy Warehouse Management System with login/signup, dashboard, expiry alerts, low-stock tracking, medicine &amp; batch management, stock movement, and shipping details. Built with Django, SQLite, Bootstrap, and includes an admin panel for full inventory control.
+>>>>>>> a57b823eb31805198706f13728b3d815e639b018
